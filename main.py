@@ -40,6 +40,41 @@ def fetch_top_java(max_repos: int):
         time.sleep(0.2)  # gentileza com a API
     return repos[:max_repos]
 
+def get_metrics(full_name: str):
+    #Nome do repositorio
+    repo_url = f"https://api.github.com/repos/{full_name}"
+    r = requests.get(repo_url, headers=HEADERS, timeout= 60)
+    r.raise_for_status()
+    repo_data = r.json()
+
+    #Popularidade
+    stars = repo_data.get("stargazers_count", 0)
+
+    #Maturidade 
+
+    created_at_full = repo_data.get("created_at", "")
+    created_at = created_at_full.split('T')[0] if created_at_full else ""
+
+    # 4. Atividade (número de releases)
+    releases_url = f"https://api.github.com/repos/{full_name}/releases"
+    try:
+        r_releases = requests.get(releases_url, headers=HEADERS, timeout=60)
+        r_releases.raise_for_status()
+        releases = r_releases.json()
+        num_releases = len(releases) if isinstance(releases, list) else 0
+    except:
+        num_releases = 0
+    
+    time.sleep(0.2)
+
+    return {
+    'full_name': full_name,
+    'stars': stars,
+    'releases': num_releases,
+    'created_at': created_at
+    }
+
+
 def clone_repo(full_name: str):
     owner, repo = full_name.split("/", 1)
     dest = OUT / owner / repo
