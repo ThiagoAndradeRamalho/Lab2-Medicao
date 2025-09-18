@@ -143,7 +143,9 @@ A análise mostra que os repositórios mais populares no GitHub, embora recebam 
 | LCOM           | 3,4   | 8  | -58%    |
 
 #### RQ2 - Maturidade vs Qualidade
- Conforme o repositório amadurece, observa-se uma melhora inicial na qualidade, resultado de refatorações e padronização, mas esse avanço tende a estagnar com o tempo. Ao controlar fatores como tamanho do código, popularidade e cadência de releases, o efeito direto da idade sobre as métricas de qualidade se mostra mínimo ou inexistente. A única exceção parcial foi o LCOM, que apresentou uma leve tendência de melhora em repositórios mais antigos, sugerindo maior coesão interna. No entanto, de forma geral, os dados confirmam que a idade, por si só, não garante qualidade; o que realmente importa é a manutenção contínua, a governança de versões e a gestão da complexidade ao longo do ciclo de vida do projeto.
+ Conforme o repositório amadurece, observa-se uma melhora inicial na qualidade, resultado de refatorações e padronização, mas esse avanço tende a estagnar com o tempo. Ao controlar fatores como tamanho do código, popularidade e cadência de releases, o efeito direto da idade sobre as métricas de qualidade se mostra mínimo ou inexistente. A única exceção parcial foi o LCOM, que apresentou uma leve tendência de melhora em repositórios mais antigos, sugerindo maior coesão interna. No entanto, de forma geral, os dados confirmam que a idade, por si só, não garante qualidade; o que realmente importa é a manutenção contínua, a governança de versões e a gestão da complexidade ao longo do ciclo de vida do projeto.C:\Users\Thiago Andrade\Documents\GitHub\Lab2-Medicao\maturidadexqualidade.png
+
+ [![Preview](/maturidadexqualidade.png)](https://github.com/ThiagoAndradeRamalho/Lab2-Medicao/blob/main/maturidadexqualidade.png)
 
 #### RQ3 - Atividade vs Qualidade
 
