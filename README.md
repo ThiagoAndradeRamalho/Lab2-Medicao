@@ -172,7 +172,7 @@ Isso sugere outliers e não linearidade, pois à medida que o tamanho cresce (es
 
 ### 5.4. Discussão dos resultados
 
-- RQ1
+RQ1
 - **Confirmações e Refutações**:
   ❌ Popularidade != qualidade: não se sustenta após controlar tamanho, LOC e idade. Stars significam escala e não melhor CBO/DIT/LCOM.
   ✅ Cadência de releases: associada a leve melhora, com menos COM/DIT, mas mesmo assim possui um efeito pequeno.
@@ -184,7 +184,7 @@ Isso sugere outliers e não linearidade, pois à medida que o tamanho cresce (es
   Com o tempo há melhora inicial e depois platô
   Comparando projetos de mesmo porte e idade, popularidade e a própria idade quase não fazem diferença
 
-- RQ2
+RQ2
 - **✅ Confirmações e ❌ Refutações**:
   ❌ Popularidade != qualidade: não se sustenta após controlar tamanho, LOC e idade. Stars significam escala e não melhor CBO/DIT/LCOM.
   ✅ Cadência de releases: associada a leve melhora, com menos COM/DIT, mas mesmo assim possui um efeito pequeno.
