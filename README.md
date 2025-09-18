@@ -52,12 +52,20 @@ Este é um estudo observacional, transversal e correlacional que investiga como 
 ---
 
 ### 4.1 Coleta de dados
-- A coleta foi realizada utilizando a **GitHub API**, que fornece acesso estruturado a metadados de repositórios.  
-- Foram considerados [X] repositórios, selecionados a partir dos seguintes critérios:  
-  - **Popularidade** → ex.: repositórios com maior número de estrelas (top-N).  
-  - **Relevância por linguagem** → restrição a uma linguagem de programação específica.  
-  - **Atividade mínima** → presença de commits, issues ou releases nos últimos anos.  
-- Cada repositório retornou informações brutas como datas de criação e atualização, número de estrelas, forks, issues, releases e linguagem principal.  
+- Para realizar a coleta de dados, foi feito um script em Python, utilizando a Github API, para coletar dados dos 1000 repositórios  open-source mais populares em Java.  
+- Para cada repositório foi considerado os seguintes critérios: 
+  - **Popularidade**: Números de estrelas do repositório  
+  - **Maturidade**: Idade do repositório 
+  - **Atividade** : Quantidade de releases
+  - **Tamanho do repositório** : LOC e linhas de comentários de cada repositório
+  - **CBO** : Coupling Between Objects
+  - **DIT** : Depth Inheritance Tree
+  - **LCOM** : Lack of Cohesion of Methods
+ 
+As três últimas métricas são relacionadas a métricas de qualidade, onde foram calculadas utilizando a ferramenta CK, uma ferramenta que realiza a análise de código Java.
+
+O script em Python coletou todas as métricas por repositório e consolidou os resultados em um único arquivo CSV, viabilizando a análise direta dos dados brutos.
+Além de padronizar a extração (processo e qualidade), o pipeline automatizou o cálculo e o registro das variáveis, reduzindo erros manuais e facilitando a exploração estatística (correlações, comparações por quartis e geração de gráficos).
 
 ---
 
@@ -124,12 +132,12 @@ Apresente as estatísticas descritivas das métricas analisadas, permitindo uma 
 #### RQ1
 
 #### RQ2
-Conforme o repositório amadurece, é possível ver uma melhora inicial nas métricas de qualidade seja por refatorações e padronização, mas depois o avanço tende a estagnar. Ao controlar fatores como tamanho do código, LOC, popularidade e cadência de releases, o efeito direto da idade torna-se quase imperceptivel. Com isso, foi possível analisar que não é a idade que garante qualidade, e sim manutenção contínua, governança de versões e gestão da complexidade ao longo do tempo.
+- Conforme o repositório amadurece, é possível ver uma melhora inicial nas métricas de qualidade seja por refatorações e padronização, mas depois o avanço tende a estagnar. Ao controlar fatores como tamanho do código, LOC, popularidade e cadência de releases, o efeito direto da idade torna-se quase imperceptivel. Com isso, foi possível analisar que não é a idade que garante qualidade, e sim manutenção contínua, governança de versões e gestão da complexidade ao longo do tempo.
 
 #### RQ3 - Atividade vs Qualidade
 
 Releases × CBO
-A correlação foi fraca positiva (r ≈ 0,13, p < 0,001). Ou seja, em média, repositórios com mais releases tendem a ter um CBO um pouco maior. O gráfico mostra a maioria dos projetos concentrados perto de zero releases e CBO baixo, mas há alguns casos mais ativos colocando o acoplamento para cima.
+ A correlação foi fraca positiva (r ≈ 0,13, p < 0,001). Ou seja, em média, repositórios com mais releases tendem a ter um CBO um pouco maior. O gráfico mostra a maioria dos projetos concentrados perto de zero releases e CBO baixo, mas há alguns casos mais ativos colocando o acoplamento para cima.
 
 Releases × DIT
 A correlação foi praticamente nula (r ≈ 0,03, p = 0,38). Ou seja, o número de releases não parece ter relação com a profundidade de herança.
@@ -139,7 +147,7 @@ A correlação foi nula (r ≈ -0,01, p = 0,76). A quantidade de releases não i
 
 A análise mostra que o número de releases não tem relação significativa com a qualidade interna dos repositórios. Apenas no CBO foi encontrada uma correlação fraca positiva, indicando um leve aumento do acoplamento em projetos mais ativos. Já para DIT e LCOM, as correlações foram praticamente nulas, evidenciando que a frequência de releases não influencia de forma relevante nem a profundidade de herança nem a coesão das classes. Isso sugere que a atividade medida por releases não é um bom preditor da qualidade estrutural do código.
 
-#### RQ4 
+#### RQ4 Tamanho vs Qualidade
 ### Correlação (Pearson) - Tamanho × Qualidade
 
 | Métrica               | CBO médio | DIT médio | LCOM médio |
