@@ -158,6 +158,12 @@ A correlação foi nula (r ≈ -0,01, p = 0,76). A quantidade de releases não i
 
 A análise mostra que o número de releases não tem relação significativa com a qualidade interna dos repositórios. Apenas no CBO foi encontrada uma correlação fraca positiva, indicando um leve aumento do acoplamento em projetos mais ativos. Já para DIT e LCOM, as correlações foram praticamente nulas, evidenciando que a frequência de releases não influencia de forma relevante nem a profundidade de herança nem a coesão das classes. Isso sugere que a atividade medida por releases não é um bom preditor da qualidade estrutural do código.
 
+![Texto alternativo](scatter_releases_vs_cbo.png)
+![Texto alternativo](scatter_releases_vs_dit.png)
+![Texto alternativo](scatter_releases_vs_lcom.png)
+
+
+
 #### RQ4 Tamanho vs Qualidade
 ### Correlação (Pearson) - Tamanho × Qualidade
 
