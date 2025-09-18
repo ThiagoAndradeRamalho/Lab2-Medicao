@@ -33,7 +33,7 @@ As **Hipóteses Informais** foram elaboradas a partir das RQs, estabelecendo exp
 |------|-----------|
 | IH01 | Repositórios populares têm melhores médias de qualidade. |
 | IH02 | Repositorios com mais qualidade são mais maduros |
-| IH03 | Repositórios com maior número de releases tendem a apresentar melhor qualidade, com CBO mais baixo e LCOM menor, pois releases frequentes ajdudam a manter o projeto sempre em dia.
+| IH03 | Repositórios com maior número de releases tendem a apresentar melhor qualidade, com CBO mais baixo e LCOM menor, pois releases frequentes ajdudam a manter o projeto sempre em dia. |
 | IH04 | Repositórios com maior número de linhas de código e classes tendem a apresentar CBO e LCOM mais altos, pois o crescimento do sistema o torna mais complexo de manter tudo modular e legível |
 
 ---
@@ -101,12 +101,6 @@ Somando clones, reexecuções e as rodadas de CK, o processo completo passou de 
 
 ## 5. Resultados
 
- -RQ1
-
-- RQ2
-Conforme o repositório amadurece, é possível ver uma melhora inicial nas métricas de qualidade seja por refatorações e padronização, mas depois o avanço tende a estagnar. Ao controlar fatores como tamanho do código, LOC, popularidade e cadência de releases, o efeito direto da idade torna-se quase imperceptivel. Com isso, foi possível analisar que não é a idade que garante qualidade, e sim manutenção contínua, governança de versões e gestão da complexidade ao longo do tempo.
-
-
 ### 5.1 Estatísticas Descritivas
 
 Apresente as estatísticas descritivas das métricas analisadas, permitindo uma compreensão mais detalhada da distribuição dos dados.
@@ -127,6 +121,11 @@ Apresente as estatísticas descritivas das métricas analisadas, permitindo uma 
 
 ### 5.2 Análise
 
+#### RQ1
+
+#### RQ2
+Conforme o repositório amadurece, é possível ver uma melhora inicial nas métricas de qualidade seja por refatorações e padronização, mas depois o avanço tende a estagnar. Ao controlar fatores como tamanho do código, LOC, popularidade e cadência de releases, o efeito direto da idade torna-se quase imperceptivel. Com isso, foi possível analisar que não é a idade que garante qualidade, e sim manutenção contínua, governança de versões e gestão da complexidade ao longo do tempo.
+
 #### RQ3 - Atividade vs Qualidade
 
 Releases × CBO
@@ -138,14 +137,35 @@ A correlação foi praticamente nula (r ≈ 0,03, p = 0,38). Ou seja, o número 
 Releases × LCOM
 A correlação foi nula (r ≈ -0,01, p = 0,76). A quantidade de releases não influencia na coesão das classes.
 
+A análise mostra que o número de releases não tem relação significativa com a qualidade interna dos repositórios. Apenas no CBO foi encontrada uma correlação fraca positiva, indicando um leve aumento do acoplamento em projetos mais ativos. Já para DIT e LCOM, as correlações foram praticamente nulas, evidenciando que a frequência de releases não influencia de forma relevante nem a profundidade de herança nem a coesão das classes. Isso sugere que a atividade medida por releases não é um bom preditor da qualidade estrutural do código.
+
+#### RQ4 
+### Correlação (Pearson) - Tamanho × Qualidade
+
+| Métrica               | CBO médio | DIT médio | LCOM médio |
+|-----------------------|---------|---------|----------|
+| Loc                   | 0.172   | 0.071   | 0.054    |
+| Linhas de comentários   | 0.003   | -0.075  | 0.015    |
+| Tamanho total           | 0.081   | -0.011  | 0.033    |
+
+### Correlação (Spearman) - Tamanho × Qualidade
+
+| Métrica             | CBO médio | DIT médio | LCOM médio |
+|---------------------|---------|---------|----------|
+| loc                 | 0.481   | 0.372   | 0.535    |
+| Linhas de comentários | 0.344   | 0.209   | 0.375    |
+| Tamanho total          | 0.384   | 0.261   | 0.432    |
+
+
+Não há relação linear forte, mas existe tendência monotônica clara: repositórios maiores tendem a ter maior acoplamento (CBO), herança um pouco mais profunda (DIT) e menor coesão (LCOM ↑). As linhas de comentário acompanham essa tendência, mas com efeito menor que LOC.
+Isso sugere outliers e não linearidade, pois à medida que o tamanho cresce (especialmente no alto da distribuição), as métricas de “complexidade” pioram progressivamente.
+
 ---
 
 ### 5.4. Discussão dos resultados
 
-Nesta seção, compare os resultados obtidos com as hipóteses informais levantadas pelo grupo no início do experimento.
-
 - RQ1
-- **✅ Confirmações e ❌ Refutações**:
+- **Confirmações e Refutações**:
   ❌ Popularidade != qualidade: não se sustenta após controlar tamanho, LOC e idade. Stars significam escala e não melhor CBO/DIT/LCOM.
   ✅ Cadência de releases: associada a leve melhora, com menos COM/DIT, mas mesmo assim possui um efeito pequeno.
   ✅ Platô com a idade: melhora no início e estagna depois.
@@ -168,14 +188,16 @@ Nesta seção, compare os resultados obtidos com as hipóteses informais levanta
   Com o tempo há melhora inicial e depois platô
   Comparando projetos de mesmo porte e idade, popularidade e a própria idade quase não fazem diferença
 
+RQ03 - Releases vs Qualidade
+- **✅ Confirmação ou refutação das hipóteses**: A hipótese IH03 foi refutada, ja que mais releases não indicaram melhor qualidade. Encontrou apenas uma correlação fraca positiva com CBO, sugerindo acoplamento um pouco maior, enquanto para DIT e LCOM não houve relação significativa. 
+- **❌ Explicações para resultados divergentes**: A hipótese pode não ter se confirmado porque o número de releases não reflete, necessariamente, a qualidade interna do código, mas sim práticas de versionamento e gestão do projeto. Em alguns casos, projetos grandes podem lançar releases frequentes por exigências de manutenção ou entregas incrementais, sem que isso implique em redução da complexidade interna.   
+- **🔍 Padrões e insights interessantes**: Apesar da ausência de correlação significativa, observou-se que a maioria dos repositórios permanece próxima de zero releases e com métricas de qualidade baixas, enquanto poucos projetos mais ativos apresentaram CBO um pouco mais elevado. Isso sugere que a atividade em termos de releases pode estar associada apenas a casos específicos, sem constituir uma tendência geral.  
 
-- **✅ Confirmação ou refutação das hipóteses**: identifique quais hipóteses foram confirmadas pelos dados e quais foram refutadas.  
-- **❌ Explicações para resultados divergentes**: caso algum resultado seja diferente do esperado, tente levantar possíveis causas ou fatores que possam ter influenciado.  
-- **🔍 Padrões e insights interessantes**: destaque tendências ou comportamentos relevantes observados nos dados que não haviam sido previstos nas hipóteses.  
-- **📊 Comparação por subgrupos (opcional)**: se houver segmentação dos dados (ex.: por linguagem de programação, tamanho do repositório), discuta como os resultados se comportam em cada grupo.
-
-> Relacione sempre os pontos observados com as hipóteses informais definidas na introdução, fortalecendo a análise crítica do experimento.
-
+RQ04 - Atividade vs Qualidade
+- **✅ Confirmação ou refutação das hipóteses**: A hipótese IH04, que previa que repositórios maiores apresentariam CBO e LCOM mais altos devido à maior complexidade, foi confirmada parcialmente. As correlações de Pearson foram fracas, mas as de Spearman mostraram tendências moderadas e positivas, confirmando que o aumento no tamanho está associado a piora nas métricas de acoplamento e coesão. 
+- **❌ Explicações para resultados divergentes**: Os coeficientes de Pearson baixos indicam que a relação não é linear. Isso pode ser explicado pela presença de outliers e pela distribuição desigual de tamanhos: a maior parte dos repositórios é pequena, enquanto poucos projetos muito grandes concentram a tendência de crescimento da complexidade.  
+- **🔍 Padrões e insights interessantes**: O LOC é o melhor preditor do aumento das métricas de complexidade, enquanto as linhas de comentários acompanham a mesma direção, mas com efeito menor. Isso reforça que a expansão do código-fonte impacta diretamente na qualidade, enquanto a documentação apenas acompanha esse crescimento.  
+  
 ---
 
 ## 6. Conclusão
@@ -205,13 +227,7 @@ Liste as referências bibliográficas ou links utilizados.
 - [📌 GitHub API Documentation](https://docs.github.com/en/graphql)
 - [📌 CK Metrics Tool](https://ckjm.github.io/)
 - [📌 Biblioteca Pandas](https://pandas.pydata.org/)
-- [📌 Power BI](https://docs.microsoft.com/en-us/power-bi/fundamentals/service-get-started)
 
 ---
 
-## 8. Apêndices
-- 💾 Scripts utilizados para coleta e análise de dados.
-- 🔗 Consultas GraphQL ou endpoints REST.
-- 📊 Planilhas e arquivos CSV gerados.
 
----
