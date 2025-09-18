@@ -47,7 +47,7 @@ As **Hipóteses Informais** foram elaboradas a partir das RQs, estabelecendo exp
 ---
 
 ## 4. Metodologia
-Este é um estudo observacional, transversal e correlacional que investiga como fatores de processo — popularidade, maturidade, atividade e tamanho — se relacionam com métricas internas de qualidade (CBO, DIT, LCOM) em repositórios Java do GitHub. Não há intervenção: analisamos dados tal como estão nos projetos. As questões de pesquisa, o conjunto de métricas e a condução geral seguem o escopo definido pelo laboratório, garantindo alinhamento e comparabilidade. Em resumo, queremos entender até que ponto repositórios mais populares, mais antigos, mais ativos ou maiores apresentam padrões diferentes de acoplamento, profundidade de herança e coesão.
+Este é um estudo observacional, transversal e correlacional que investiga como fatores de processo, popularidade, maturidade, atividade e tamanho, se relacionam com métricas internas de qualidade (CBO, DIT, LCOM) em repositórios Java do GitHub. As questões de pesquisa, o conjunto de métricas e a condução geral seguem o escopo definido pelo laboratório, garantindo alinhamento e comparabilidade. Em resumo, queremos entender até que ponto repositórios mais populares, mais antigos, mais ativos ou maiores apresentam padrões diferentes de acoplamento, profundidade de herança e coesão.
 
 ---
 
@@ -115,7 +115,7 @@ Apresente as estatísticas descritivas das métricas analisadas, permitindo uma 
 
 | Métrica | Média | Mediana | Moda | Desvio Padrão | Mínimo | Máximo |
 |---------|------|--------|-----|---------------|--------|--------|
-| Número de Stars | 9326,924 |5461.5 | 3667 | 11737.55 | 3155 | 151739 |
+| Número de Stars | 9326,924 |5461,5 | 3667 | 11737.55 | 3155 | 151739 |
 | Número de Releases | 40 | 10 | 0 | 116 | 0 | 2215 |
 | Idade | 9,45 | 9,65 | 9,07 | 3,08 | 0,17 | 16,67 |
 | Tamanho do Repositório (LOC) | 87010 | 14119 | 0 | 6297 | 0 | 170079 |
@@ -129,10 +129,21 @@ Apresente as estatísticas descritivas das métricas analisadas, permitindo uma 
 
 ### 5.2 Análise
 
-#### RQ1
+#### RQ1 - Popularidade vs Qualidade
 
-#### RQ2
-- Conforme o repositório amadurece, é possível ver uma melhora inicial nas métricas de qualidade seja por refatorações e padronização, mas depois o avanço tende a estagnar. Ao controlar fatores como tamanho do código, LOC, popularidade e cadência de releases, o efeito direto da idade torna-se quase imperceptivel. Com isso, foi possível analisar que não é a idade que garante qualidade, e sim manutenção contínua, governança de versões e gestão da complexidade ao longo do tempo.
+
+A análise mostra que os repositórios mais populares no GitHub, embora recebam mais estrelas, apresentam em média maiores valores de acoplamento (CBO), herança (DIT) e falta de coesão (LCOM) quando comparados aos menos populares. Isso significa que, por dentro, o código dos projetos populares tende a ser mais interligado, mais profundo em hierarquias e menos coeso, refletindo uma estrutura interna mais complexa e difícil de manter. Já os projetos menos populares, apesar de terem menos visibilidade, apresentam em geral uma organização mais simples e coesa, sugerindo que a popularidade não está diretamente associada a uma melhor qualidade interna do código, mas sim a outros fatores como utilidade, comunidade ou marketing.
+
+### Comparação por Quartis de Popularidade (Stars)
+
+| Métrica               | Média (25% mais populares) | Média (25% menos populares) | Variação |
+|-----------------------|---------|---------|----------|
+| CBO                   | 0,182   | 0,091   | 100%    |
+| DIT   | 0,445   | 0,182  | 150%    |
+| LCOM           | 3,4   | 8  | -58%    |
+
+#### RQ2 - Maturidade vs Qualidade
+ Conforme o repositório amadurece, observa-se uma melhora inicial na qualidade, resultado de refatorações e padronização, mas esse avanço tende a estagnar com o tempo. Ao controlar fatores como tamanho do código, popularidade e cadência de releases, o efeito direto da idade sobre as métricas de qualidade se mostra mínimo ou inexistente. A única exceção parcial foi o LCOM, que apresentou uma leve tendência de melhora em repositórios mais antigos, sugerindo maior coesão interna. No entanto, de forma geral, os dados confirmam que a idade, por si só, não garante qualidade; o que realmente importa é a manutenção contínua, a governança de versões e a gestão da complexidade ao longo do ciclo de vida do projeto.
 
 #### RQ3 - Atividade vs Qualidade
 
@@ -172,34 +183,28 @@ Isso sugere outliers e não linearidade, pois à medida que o tamanho cresce (es
 
 ### 5.4. Discussão dos resultados
 
-RQ1
+RQ1 - Popularidade vs Qualidade
 - **Confirmações e Refutações**:
-  ❌ Popularidade != qualidade: não se sustenta após controlar tamanho, LOC e idade. Stars significam escala e não melhor CBO/DIT/LCOM.
-  ✅ Cadência de releases: associada a leve melhora, com menos COM/DIT, mas mesmo assim possui um efeito pequeno.
-  ✅ Platô com a idade: melhora no início e estagna depois.
+  - Popularidade ≠ qualidade: não se sustenta após controlar tamanho, LOC e idade. Stars significam escala e não melhor CBO/DIT/LCOM.
+  - Cadência de releases: associada a leve melhora, com menos COM/DIT, mas mesmo assim possui um efeito pequeno.
 - **❌ Explicações para resultados divergentes**: 
-  Popularidade pode ser associadan a projetos maiores, aumenta CBO/LCOM, porem idade não melhora o código, há diferenças de domínio /arquitetura, e releases frequentes mostrando cuidado melhor do que estrelas.
+  Popularidade pode ser associadan a projetos maiores, aumenta CBO/LCOM, porem popularidade não melhora o código, há diferenças de domínio /arquitetura, e releases frequentes mostrando cuidado melhor do que estrelas.
 - **🔍 Padrões e insights interessantes**: 
   Quanto maior o código, mais cresce a dependência entre partes 
-  Com o tempo há melhora inicial e depois platô
-  Comparando projetos de mesmo porte e idade, popularidade e a própria idade quase não fazem diferença
+  Comparando projetos de mesmo porte popularidade afeta a qualidade
 
-RQ2
+RQ2 - Maturidade vs Qualidade
 - **✅ Confirmações e ❌ Refutações**:
-  ❌ Popularidade != qualidade: não se sustenta após controlar tamanho, LOC e idade. Stars significam escala e não melhor CBO/DIT/LCOM.
-  ✅ Cadência de releases: associada a leve melhora, com menos COM/DIT, mas mesmo assim possui um efeito pequeno.
-  ✅ Platô com a idade: melhora no início e estagna depois.
+  A hipótese foi apenas parcialmente confirmada. Repositórios mais antigos mostram uma leve melhora na organização interna do código (LCOM), mas em outros pontos como acoplamento (CBO) e herança (DIT) não há sinais claros de ganho com o tempo. Já quando se olha para a maturidade de processo, medida pela frequência de releases, o efeito aparece de forma mais evidente, mostrando que a disciplina de atualização faz mais diferença do que a idade em si.
 - **❌ Explicações para resultados divergentes**: 
-  Popularidade pode ser associadan a projetos maiores, aumenta CBO/LCOM, porem idade não melhora o código, há diferenças de domínio /arquitetura, e releases frequentes mostrando cuidado melhor do que estrelas.
+  Ficar mais velho não garante que o código foi refatorado, muitos crescem em tamanho e acabam ficando mais complexos, escondendo efeitos da idade. Possui casos fora da curva que dsitorcem os números.
 - **🔍 Padrões e insights interessantes**: 
-  Quanto maior o código, mais cresce a dependência entre partes 
-  Com o tempo há melhora inicial e depois platô
-  Comparando projetos de mesmo porte e idade, popularidade e a própria idade quase não fazem diferença
+  Projetos maiores costumam gerar mais dependências internas e perder coesão. No início da vida do repositório pode haver alguma melhora, mas depois essa evolução tende a parar. Comparando projetos de tamanho parecido, popularidade e idade por si só quase não fazem diferença na qualidade.
 
 RQ03 - Releases vs Qualidade
 - **✅ Confirmação ou refutação das hipóteses**: A hipótese IH03 foi refutada, ja que mais releases não indicaram melhor qualidade. Encontrou apenas uma correlação fraca positiva com CBO, sugerindo acoplamento um pouco maior, enquanto para DIT e LCOM não houve relação significativa. 
 - **❌ Explicações para resultados divergentes**: A hipótese pode não ter se confirmado porque o número de releases não reflete, necessariamente, a qualidade interna do código, mas sim práticas de versionamento e gestão do projeto. Em alguns casos, projetos grandes podem lançar releases frequentes por exigências de manutenção ou entregas incrementais, sem que isso implique em redução da complexidade interna.   
-- **🔍 Padrões e insights interessantes**: Apesar da ausência de correlação significativa, observou-se que a maioria dos repositórios permanece próxima de zero releases e com métricas de qualidade baixas, enquanto poucos projetos mais ativos apresentaram CBO um pouco mais elevado. Isso sugere que a atividade em termos de releases pode estar associada apenas a casos específicos, sem constituir uma tendência geral.  
+- **🔍 Padrões e insights interessantes**: Ser antigo não é suficiente, a qualidade só melhora quando há processo, seja releases regulares, revisão, testes. Tamanho pesa muito e pode virar uma bola de neve, inibindo ganhos da maturidade. Em geral há uma arrumada inicial e depois platô, sem manutenção contínua, a qualidade para.
 
 RQ04 - Atividade vs Qualidade
 - **✅ Confirmação ou refutação das hipóteses**: A hipótese IH04, que previa que repositórios maiores apresentariam CBO e LCOM mais altos devido à maior complexidade, foi confirmada parcialmente. As correlações de Pearson foram fracas, mas as de Spearman mostraram tendências moderadas e positivas, confirmando que o aumento no tamanho está associado a piora nas métricas de acoplamento e coesão. 
@@ -210,31 +215,9 @@ RQ04 - Atividade vs Qualidade
 
 ## 6. Conclusão
 
-Resumo das principais descobertas do laboratório.
+O estudo mostrou que fatores de processo como popularidade, maturidade, atividade e tamanho se relacionam de maneiras distintas com a qualidade interna do código. A popularidade, medida por estrelas, não se traduziu em melhor organização interna, já que os projetos mais populares tendem a ser maiores e, por isso, mais complexos. A maturidade em termos de idade também não garantiu qualidade: houve sinais de melhora inicial, mas o efeito se mostrou fraco ou inexistente quando controlados outros fatores, reforçando que apenas envelhecer não é suficiente. A atividade medida por releases não se mostrou um bom preditor de qualidade estrutural, aparecendo apenas uma correlação fraca com CBO. Já o tamanho do código foi o fator mais consistente: projetos maiores apresentaram mais acoplamento, heranças mais profundas e menor coesão, confirmando o impacto direto da expansão sobre a complexidade.
 
-- **🏆 Principais insights:**  
-  - Big numbers encontrados nos repositórios, popularidade e métricas destacadas.  
-  - Descobertas relevantes sobre padrões de contribuição, releases, issues fechadas ou linguagens mais utilizadas.  
-  - Confirmações ou refutações das hipóteses informais levantadas pelo grupo.
-
-- **⚠️ Problemas e dificuldades enfrentadas:**  
-  - Limitações da API do GitHub e paginação de grandes volumes de dados.  
-  - Normalização e tratamento de dados inconsistentes ou ausentes.  
-  - Desafios com cálculos de métricas ou integração de múltiplos arquivos CSV.  
-
-- **🚀 Sugestões para trabalhos futuros:**  
-  - Analisar métricas adicionais ou aprofundar correlações entre métricas de qualidade e métricas de processo.  
-  - Testar outras linguagens de programação ou frameworks.  
-  - Implementar dashboards interativos para visualização de grandes volumes de dados.  
-  - Explorar métricas de tendências temporais ou evolução de repositórios ao longo do tempo.
-
----
-
-## 7. Referências
-Liste as referências bibliográficas ou links utilizados.
-- [📌 GitHub API Documentation](https://docs.github.com/en/graphql)
-- [📌 CK Metrics Tool](https://ckjm.github.io/)
-- [📌 Biblioteca Pandas](https://pandas.pydata.org/)
+No geral, os resultados reforçam que a qualidade de software não depende apenas de popularidade ou idade, mas sim de manutenção contínua, gestão da complexidade e governança de versões. Projetos que crescem sem processos claros tendem a acumular dependências e perder coesão, enquanto aqueles que investem em organização e disciplina de releases têm mais chance de sustentar padrões de qualidade.
 
 ---
 
